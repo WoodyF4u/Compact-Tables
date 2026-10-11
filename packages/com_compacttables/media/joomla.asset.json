@@ -1,0 +1,42 @@
+{
+  "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+  "name": "com_compacttables",
+  "version": "0.0.17",
+  "description": "Compact Tables",
+  "license": "GPL-2.0-or-later",
+  "assets": [
+    {
+      "name": "com_compacttables.admin",
+      "type": "style",
+      "uri": "com_compacttables/admin.css"
+    },
+    {
+      "name": "com_compacttables.list",
+      "type": "script",
+      "uri": "com_compacttables/list.js",
+      "dependencies": ["core"],
+      "attributes": { "type": "module" }
+    },
+    {
+      "name": "com_compacttables.modal",
+      "type": "script",
+      "uri": "com_compacttables/modal.js",
+      "dependencies": ["core"],
+      "attributes": { "type": "module" }
+    },
+    {
+      "name": "com_compacttables.toolbar-config",
+      "type": "script",
+      "uri": "com_compacttables/toolbar-config.js",
+      "dependencies": ["core"],
+      "attributes": { "type": "module" }
+    },
+    {
+      "name": "com_compacttables.editor",
+      "type": "script",
+      "uri": "com_compacttables/editor.js",
+      "dependencies": ["core", "joomla.dialog"],
+      "attributes": { "type": "module" }
+    }
+  ]
+}

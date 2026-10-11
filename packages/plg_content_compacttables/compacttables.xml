@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="plugin" group="content" method="upgrade">
+    <name>plg_content_compacttables</name>
+    <author>CompactWeb</author>
+    <creationDate>2026-10</creationDate>
+    <copyright>(C) 2026 CompactWeb</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <authorUrl>https://compactweb.nl</authorUrl>
+    <version>0.0.17</version>
+    <description>PLG_CONTENT_COMPACTTABLES_XML_DESCRIPTION</description>
+    <namespace path="src">Compactweb\Plugin\Content\Compacttables</namespace>
+    <files>
+        <folder plugin="compacttables">services</folder>
+        <folder>src</folder>
+        <folder>tmpl</folder>
+    </files>
+    <languages folder="language">
+        <language tag="en-GB">en-GB/plg_content_compacttables.ini</language>
+        <language tag="en-GB">en-GB/plg_content_compacttables.sys.ini</language>
+        <language tag="nl-NL">nl-NL/plg_content_compacttables.ini</language>
+        <language tag="nl-NL">nl-NL/plg_content_compacttables.sys.ini</language>
+    </languages>
+    <media destination="plg_content_compacttables" folder="media">
+        <folder>css</folder>
+    </media>
+</extension>

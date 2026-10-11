@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="component" method="upgrade">
+    <name>com_compacttables</name>
+    <author>CompactWeb</author>
+    <creationDate>2026-10</creationDate>
+    <copyright>(C) 2026 CompactWeb</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <authorUrl>https://compactweb.nl</authorUrl>
+    <version>0.0.17</version>
+    <description>COM_COMPACTTABLES_XML_DESCRIPTION</description>
+    <namespace path="src">Compactweb\Component\Compacttables</namespace>
+
+    <install>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+            <file driver="postgresql" charset="utf8">sql/install.postgresql.utf8.sql</file>
+        </sql>
+    </install>
+    <uninstall>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+            <file driver="postgresql" charset="utf8">sql/uninstall.postgresql.utf8.sql</file>
+        </sql>
+    </uninstall>
+    <update>
+        <schemas>
+            <schemapath type="mysql">sql/updates/mysql</schemapath>
+            <schemapath type="postgresql">sql/updates/postgresql</schemapath>
+        </schemas>
+    </update>
+
+    <files folder="site">
+        <folder>src</folder>
+        <folder>tmpl</folder>
+    </files>
+
+    <media destination="com_compacttables" folder="media">
+        <filename>joomla.asset.json</filename>
+        <folder>css</folder>
+        <folder>js</folder>
+    </media>
+
+    <administration>
+        <menu img="class:th">COM_COMPACTTABLES</menu>
+        <files folder="admin">
+            <filename>access.xml</filename>
+            <filename>config.xml</filename>
+            <folder>forms</folder>
+            <folder>language</folder>
+            <folder>services</folder>
+            <folder>sql</folder>
+            <folder>src</folder>
+            <folder>tmpl</folder>
+        </files>
+    </administration>
+</extension>

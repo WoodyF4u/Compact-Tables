@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form addfieldprefix="Compactweb\Component\Compacttables\Administrator\Field">
+    <fieldset name="table">
+        <field name="id" type="hidden" default="0" filter="integer" />
+        <field
+            name="title"
+            type="text"
+            label="COM_COMPACTTABLES_FIELD_TITLE_LABEL"
+            required="true"
+            maxlength="255"
+            filter="string"
+        />
+        <field
+            name="has_header"
+            type="radio"
+            layout="joomla.form.field.radio.switcher"
+            label="COM_COMPACTTABLES_FIELD_HEADER_LABEL"
+            default="1"
+            filter="integer"
+            >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field name="data" type="hidden" filter="raw" />
+    </fieldset>
+
+    <fields name="params">
+        <fieldset name="css_header" label="COM_COMPACTTABLES_FIELDSET_HEADER">
+            <field
+                name="head_bg"
+                type="tmcolor"
+                label="COM_COMPACTTABLES_FIELD_HEAD_BG_LABEL"
+            />
+            <field
+                name="head_color"
+                type="tmcolor"
+                label="COM_COMPACTTABLES_FIELD_HEAD_COLOR_LABEL"
+            />
+            <field
+                name="head_bold"
+                type="list"
+                label="COM_COMPACTTABLES_FIELD_HEAD_BOLD_LABEL"
+                default=""
+                validate="options"
+                >
+                <option value="">COM_COMPACTTABLES_OPTION_TEMPLATE_DEFAULT</option>
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field
+                name="head_font_size"
+                type="tmsize"
+                label="COM_COMPACTTABLES_FIELD_HEAD_FONT_SIZE_LABEL"
+                units="px,rem,em,%"
+                min="0"
+                max="999"
+                step="any"
+            />
+            <field
+                name="head_link_color"
+                type="tmcolor"
+                label="COM_COMPACTTABLES_FIELD_LINK_COLOR_LABEL"
+            />
+        </fieldset>
+        <fieldset name="css_body" label="COM_COMPACTTABLES_FIELDSET_BODY" description="COM_COMPACTTABLES_FIELDSET_BODY_DESC">
+            <field
+                name="body_color"
+                type="tmcolor"
+                label="COM_COMPACTTABLES_FIELD_HEAD_COLOR_LABEL"
+            />
+            <field
+                name="body_bold"
+                type="list"
+                label="COM_COMPACTTABLES_FIELD_HEAD_BOLD_LABEL"
+                default=""
+                validate="options"
+                >
+                <option value="">COM_COMPACTTABLES_OPTION_TEMPLATE_DEFAULT</option>
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field
+                name="body_font_size"
+                type="tmsize"
+                label="COM_COMPACTTABLES_FIELD_HEAD_FONT_SIZE_LABEL"
+                units="px,rem,em,%"
+                min="0"
+                max="999"
+                step="any"
+            />
+            <field
+                name="body_link_color"
+                type="tmcolor"
+                label="COM_COMPACTTABLES_FIELD_LINK_COLOR_LABEL"
+            />
+        </fieldset>
+        <fieldset name="css_borders" label="COM_COMPACTTABLES_FIELDSET_BORDERS">
+            <field
+                name="outer_width"
+                type="tmsize"
+                label="COM_COMPACTTABLES_FIELD_OUTER_WIDTH_LABEL"
+                units="px"
+                min="0"
+                max="20"
+                step="1"
+            />
+            <field
+                name="outer_color"
+                type="tmcolor"
+                label="COM_COMPACTTABLES_FIELD_OUTER_COLOR_LABEL"
+            />
+            <field
+                name="vline_width"
+                type="tmsize"
+                label="COM_COMPACTTABLES_FIELD_VLINE_WIDTH_LABEL"
+                units="px"
+                min="0"
+                max="20"
+                step="1"
+            />
+            <field
+                name="vline_color"
+                type="tmcolor"
+                label="COM_COMPACTTABLES_FIELD_VLINE_COLOR_LABEL"
+            />
+            <field
+                name="hline_width"
+                type="tmsize"
+                label="COM_COMPACTTABLES_FIELD_HLINE_WIDTH_LABEL"
+                units="px"
+                min="0"
+                max="20"
+                step="1"
+            />
+            <field
+                name="hline_color"
+                type="tmcolor"
+                label="COM_COMPACTTABLES_FIELD_HLINE_COLOR_LABEL"
+            />
+            <field
+                name="head_line_width"
+                type="tmsize"
+                label="COM_COMPACTTABLES_FIELD_HEAD_LINE_WIDTH_LABEL"
+                units="px"
+                min="0"
+                max="20"
+                step="1"
+            />
+            <field
+                name="head_line_color"
+                type="tmcolor"
+                label="COM_COMPACTTABLES_FIELD_HEAD_LINE_COLOR_LABEL"
+            />
+        </fieldset>
+        <fieldset name="css_layout" label="COM_COMPACTTABLES_FIELDSET_LAYOUT">
+            <field
+                name="width"
+                type="tmsize"
+                label="COM_COMPACTTABLES_FIELD_WIDTH_LABEL"
+                description="COM_COMPACTTABLES_FIELD_WIDTH_DESC"
+                hint="COM_COMPACTTABLES_FIELD_WIDTH_HINT"
+                units="%,px"
+                min="1"
+                max="5000"
+                step="1"
+            />
+            <field
+                name="align"
+                type="list"
+                label="COM_COMPACTTABLES_FIELD_ALIGN_LABEL"
+                description="COM_COMPACTTABLES_FIELD_ALIGN_DESC"
+                default="left"
+                validate="options"
+                >
+                <option value="left">COM_COMPACTTABLES_OPTION_ALIGN_LEFT</option>
+                <option value="center">COM_COMPACTTABLES_OPTION_ALIGN_CENTER</option>
+                <option value="right">COM_COMPACTTABLES_OPTION_ALIGN_RIGHT</option>
+            </field>
+            <field
+                name="spacing"
+                type="tmsize"
+                label="COM_COMPACTTABLES_FIELD_SPACING_LABEL"
+                description="COM_COMPACTTABLES_FIELD_SPACING_DESC"
+                hint="COM_COMPACTTABLES_FIELD_SPACING_HINT"
+                units="px,rem,em"
+                min="0"
+                max="100"
+                step="any"
+            />
+        </fieldset>
+        <fieldset name="css_responsive" label="COM_COMPACTTABLES_FIELDSET_RESPONSIVE">
+            <field
+                name="responsive"
+                type="list"
+                label="COM_COMPACTTABLES_FIELD_RESPONSIVE_LABEL"
+                description="COM_COMPACTTABLES_FIELD_RESPONSIVE_DESC"
+                default="fit"
+                validate="options"
+                >
+                <option value="fit">COM_COMPACTTABLES_OPTION_RESPONSIVE_FIT</option>
+                <option value="scroll">COM_COMPACTTABLES_OPTION_RESPONSIVE_SCROLL</option>
+                <option value="stack">COM_COMPACTTABLES_OPTION_RESPONSIVE_STACK</option>
+            </field>
+        </fieldset>
+    </fields>
+</form>

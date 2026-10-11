@@ -1,0 +1,7 @@
+# Bouwresten van de release-workflow
+/build/
+/pkg_compacttables_v*.zip
+
+# Systeembestanden
+.DS_Store
+Thumbs.db

@@ -1,0 +1,104 @@
+name: Build and release Compact Tables
+
+# Maak op GitHub een release met een tag als v1.0.0 en klik op "Publish release".
+# Deze workflow doet dan de rest:
+#   1. zet het versienummer uit de tag in alle manifesten en in joomla.asset.json
+#   2. bouwt de drie losse zips (component, content-plugin, editorknop)
+#   3. bouwt daaruit het installatiepakket pkg_compacttables_vX.Y.Z.zip
+#   4. werkt updates.xml bij (versie, downloadlink, sha256) en commit dat naar main
+#   5. hangt het pakket aan de release
+# Joomla-sites met Compact Tables zien de update daarna vanzelf onder Systeem → Updates.
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Determine version from tag
+        id: version
+        run: |
+          version="${{ github.event.release.tag_name }}"
+          version="${version#v}"
+          if ! echo "$version" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "::error::De tag moet de vorm v1.2.3 hebben (gevonden: ${{ github.event.release.tag_name }})"
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "date=$(date +%Y-%m)" >> "$GITHUB_OUTPUT"
+
+      - name: Update version in manifests
+        run: |
+          version="${{ steps.version.outputs.version }}"
+          date="${{ steps.version.outputs.date }}"
+          for manifest in \
+            pkg_compacttables.xml \
+            packages/com_compacttables/compacttables.xml \
+            packages/plg_content_compacttables/compacttables.xml \
+            packages/plg_editors-xtd_compacttables/compacttables.xml
+          do
+            sed -i "s#<version>.*</version>#<version>${version}</version>#" "$manifest"
+            sed -i "s#<creationDate>.*</creationDate>#<creationDate>${date}</creationDate>#" "$manifest"
+          done
+          # Versie van de CSS/JS-assets, zodat browsers na een update de nieuwe bestanden laden.
+          sed -i "s#\"version\": \"[^\"]*\"#\"version\": \"${version}\"#" packages/com_compacttables/media/joomla.asset.json
+          grep -H "<version>" pkg_compacttables.xml packages/*/compacttables.xml
+
+      - name: Build installation package
+        run: |
+          version="${{ steps.version.outputs.version }}"
+          mkdir -p build/packages
+          for ext in com_compacttables plg_content_compacttables plg_editors-xtd_compacttables; do
+            (cd "packages/$ext" && zip -r -X "../../build/packages/${ext}.zip" . -x '.*' -x '*/.*')
+          done
+          cp pkg_compacttables.xml script.php build/
+          cp -r language build/
+          (cd build && zip -r -X "../pkg_compacttables_v${version}.zip" pkg_compacttables.xml script.php language packages)
+          unzip -l "pkg_compacttables_v${version}.zip"
+
+      - name: Compute checksum and download URL
+        id: meta
+        run: |
+          version="${{ steps.version.outputs.version }}"
+          sha256=$(sha256sum "pkg_compacttables_v${version}.zip" | awk '{print $1}')
+          download_url="https://github.com/${{ github.repository }}/releases/download/${{ github.event.release.tag_name }}/pkg_compacttables_v${version}.zip"
+          echo "sha256=$sha256" >> "$GITHUB_OUTPUT"
+          echo "download_url=$download_url" >> "$GITHUB_OUTPUT"
+
+      - name: Update updates.xml
+        run: |
+          version="${{ steps.version.outputs.version }}"
+          sha256="${{ steps.meta.outputs.sha256 }}"
+          download_url="${{ steps.meta.outputs.download_url }}"
+          sed -i "s#<version>.*</version>#<version>${version}</version>#" updates.xml
+          sed -i "s#<downloadurl type=\"full\" format=\"zip\">.*</downloadurl>#<downloadurl type=\"full\" format=\"zip\">${download_url}</downloadurl>#" updates.xml
+          sed -i "s#<sha256>.*</sha256>#<sha256>${sha256}</sha256>#" updates.xml
+          cat updates.xml
+
+      - name: Commit updated version numbers and updates.xml
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add updates.xml pkg_compacttables.xml packages/*/compacttables.xml packages/com_compacttables/media/joomla.asset.json
+          if git diff --cached --quiet; then
+            echo "Geen wijzigingen om te committen"
+          else
+            git commit -m "updates.xml en manifesten bijgewerkt naar v${{ steps.version.outputs.version }}"
+            git push origin HEAD:main
+          fi
+
+      - name: Upload package to the release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.release.tag_name }}
+          files: pkg_compacttables_v${{ steps.version.outputs.version }}.zip

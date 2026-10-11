@@ -1,0 +1,267 @@
+/**
+ * Compact Tables – styling of tables on the website.
+ *
+ * By default a table looks the way the site template styles tables. Every rule
+ * below that changes colours, lines or type only applies when the matching
+ * option was set for that table (the plugin then adds a modifier class and a
+ * CSS variable to the wrapper).
+ *
+ * @copyright  (C) 2026 CompactWeb
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ */
+
+.compacttables {
+  max-width: 100%;
+  margin-block-end: 1rem;
+}
+
+.compacttables__table {
+  width: 100%;
+  margin-block-end: 0;
+}
+
+/*
+ * Long words break onto the next line instead of pushing the table off the
+ * screen (with a hyphen where the browser knows the language). Some templates
+ * forbid wrapping in header cells; a table that must fit cannot have that,
+ * hence the extra class in the selector.
+ */
+.compacttables .compacttables__table :is(th, td) {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+/* ---- Small screens: keep the columns, let text wrap (default) --------
+ * Equal column widths: predictable, and short words in narrow columns
+ * are never squeezed by a neighbour with a lot of text. */
+
+.compacttables--fit .compacttables__table {
+  table-layout: fixed;
+}
+
+/* ---- Small screens: scroll sideways ---------------------------------- */
+
+.compacttables--scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.compacttables--scroll .compacttables__table {
+  width: max-content;
+  min-width: 100%;
+  max-width: none;
+}
+
+.compacttables--scroll .compacttables__table:nth-child(n) :is(th, td) {
+  max-width: 22rem;
+  overflow-wrap: break-word;
+  hyphens: manual;
+}
+
+/* ---- Small screens: stack every row as a block ----------------------- */
+
+.compacttables--stack {
+  container: compacttables / inline-size;
+}
+
+@container compacttables (max-width: 34rem) {
+  .compacttables--stack .compacttables__table,
+  .compacttables--stack .compacttables__table > tbody,
+  .compacttables--stack .compacttables__table > tbody > tr,
+  .compacttables--stack .compacttables__table > tbody > tr > td {
+    display: block;
+    width: auto;
+  }
+
+  .compacttables--stack .compacttables__table > thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .compacttables--stack .compacttables__table > tbody > tr + tr {
+    margin-block-start: .75rem;
+  }
+
+  .compacttables--stack .compacttables__table > tbody > tr > td[data-label] {
+    display: grid;
+    grid-template-columns: minmax(5.5rem, 38%) minmax(0, 1fr);
+    gap: .75rem;
+  }
+
+  .compacttables--stack .compacttables__table > tbody > tr > td[data-label]::before {
+    content: attr(data-label);
+    font-weight: 700;
+  }
+}
+
+/* ---- Width and alignment ----------------------------------------------
+ * Only on wide screens. A width in pixels never exceeds the space there is;
+ * on tablets and phones the table always uses the full width. */
+
+.compacttables--width {
+  width: min(100%, var(--tm-width));
+}
+
+.compacttables--width.compacttables--align-left {
+  margin-inline: 0 auto;
+}
+
+.compacttables--width.compacttables--align-center {
+  margin-inline: auto;
+}
+
+.compacttables--width.compacttables--align-right {
+  margin-inline: auto 0;
+}
+
+@media (max-width: 48rem) {
+  .compacttables--width {
+    width: 100%;
+  }
+}
+
+/* ---- Optional styling ------------------------------------------------ */
+
+.compacttables--head-bg .compacttables__table > thead > tr > th {
+  --bs-table-bg: var(--tm-head-bg);
+  --bs-table-accent-bg: transparent;
+  background-color: var(--tm-head-bg);
+  box-shadow: none;
+}
+
+.compacttables--head-color .compacttables__table > thead > tr > th {
+  --bs-table-color: var(--tm-head-color);
+  color: var(--tm-head-color);
+}
+
+/* Links: :nth-child(n) only raises the specificity, above the link colours templates set for tables. */
+.compacttables--head-color .compacttables__table:nth-child(n) > thead:nth-child(n) > tr:nth-child(n) > th a {
+  color: inherit;
+}
+
+.compacttables--head-bold .compacttables__table > thead > tr > th {
+  font-weight: 700;
+}
+
+.compacttables--head-normal .compacttables__table > thead > tr > th {
+  font-weight: 400;
+}
+
+.compacttables--head-size .compacttables__table > thead > tr > th {
+  font-size: var(--tm-head-size);
+}
+
+/* An own link colour wins from "links follow the text colour" above (same specificity, later rule). */
+.compacttables--head-link .compacttables__table:nth-child(n) > thead:nth-child(n) > tr:nth-child(n) > th a {
+  color: var(--tm-head-link);
+}
+
+/* The other cells: all rows below the top row (all rows when there are no column titles). */
+.compacttables--body-color .compacttables__table > tbody > tr > td {
+  --bs-table-color: var(--tm-body-color);
+  color: var(--tm-body-color);
+}
+
+.compacttables--body-bold .compacttables__table > tbody > tr > td {
+  font-weight: 700;
+}
+
+.compacttables--body-normal .compacttables__table > tbody > tr > td {
+  font-weight: 400;
+}
+
+.compacttables--body-size .compacttables__table > tbody > tr > td {
+  font-size: var(--tm-body-size);
+}
+
+.compacttables--body-link .compacttables__table:nth-child(n) > tbody:nth-child(n) > tr:nth-child(n) > td a {
+  color: var(--tm-body-link);
+}
+
+.compacttables:is(.compacttables--vline, .compacttables--hline, .compacttables--head-line, .compacttables--outer) .compacttables__table {
+  border-collapse: collapse;
+}
+
+/* Room between the cells: every cell stands on its own, lines and background included. */
+.compacttables.compacttables--spacing .compacttables__table.compacttables__table {
+  border-collapse: separate;
+  border-spacing: var(--tm-spacing);
+}
+
+/* Vertical lines between cells: between the columns, not on the outside of the table. */
+.compacttables--vline .compacttables__table > * > tr > * {
+  border-inline-width: 0;
+}
+
+.compacttables--vline .compacttables__table > * > tr > * + * {
+  border-inline-start: var(--tm-vline-w) solid var(--tm-vline-c);
+}
+
+/* Horizontal lines between cells: between the rows, not above the first or below the last row. */
+.compacttables--hline .compacttables__table > * > tr > * {
+  border-block-start-width: 0;
+  border-block-end: var(--tm-hline-w) solid var(--tm-hline-c);
+}
+
+.compacttables--hline .compacttables__table > :last-child > tr:last-child > * {
+  border-block-end-width: 0;
+}
+
+/* The line under the top row; wins from the horizontal lines. */
+.compacttables--head-line .compacttables__table > thead > tr > th {
+  border-block-end: var(--tm-head-line-w) solid var(--tm-head-line-c);
+}
+
+/* Outside of the table: drawn on the edge cells, so it always wins from the cell lines. */
+.compacttables--outer .compacttables__table > :first-child > tr:first-child > * {
+  border-block-start: var(--tm-outer-w) solid var(--tm-outer-c);
+}
+
+.compacttables--outer .compacttables__table > :last-child > tr:last-child > * {
+  border-block-end: var(--tm-outer-w) solid var(--tm-outer-c);
+}
+
+.compacttables--outer .compacttables__table > * > tr > :first-child {
+  border-inline-start: var(--tm-outer-w) solid var(--tm-outer-c);
+}
+
+.compacttables--outer .compacttables__table > * > tr > :last-child {
+  border-inline-end: var(--tm-outer-w) solid var(--tm-outer-c);
+}
+
+@container compacttables (max-width: 34rem) {
+  /* Stacked: the cells of a row are below each other, so there is nothing for a vertical line to separate. */
+  .compacttables--stack.compacttables--vline .compacttables__table > tbody > tr > td {
+    border-inline-width: 0;
+  }
+
+  /* Stacked: the horizontal line separates the cells within every row block. */
+  .compacttables--stack.compacttables--hline .compacttables__table > tbody:nth-child(n) > tr:nth-child(n) > td {
+    border-block-end: var(--tm-hline-w) solid var(--tm-hline-c);
+  }
+
+  .compacttables--stack.compacttables--hline .compacttables__table > tbody:nth-child(n) > tr:nth-child(n) > td:last-child {
+    border-block-end-width: 0;
+  }
+
+  /* Stacked: every row is its own block, so every row gets the outside line
+     and the cells inside it are only separated by a thin rule. */
+  .compacttables--stack.compacttables--outer .compacttables__table > tbody > tr {
+    border: var(--tm-outer-w) solid var(--tm-outer-c);
+  }
+
+  /* :nth-child(n) only raises the specificity above the edge rules further up. */
+  .compacttables--stack.compacttables--outer .compacttables__table > tbody:nth-child(n) > tr:nth-child(n) > td {
+    border-width: 0;
+    border-block-end: var(--tm-hline-w, 1px) solid var(--tm-hline-c, color-mix(in srgb, currentColor 20%, transparent));
+  }
+
+  .compacttables--stack.compacttables--outer .compacttables__table > tbody:nth-child(n) > tr:nth-child(n) > td:last-child {
+    border-block-end-width: 0;
+  }
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="package" method="upgrade">
+    <name>pkg_compacttables</name>
+    <packagename>compacttables</packagename>
+    <author>CompactWeb</author>
+    <creationDate>2026-10</creationDate>
+    <copyright>(C) 2026 CompactWeb</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <authorUrl>https://compactweb.nl</authorUrl>
+    <version>0.0.17</version>
+    <description>PKG_COMPACTTABLES_XML_DESCRIPTION</description>
+    <blockChildUninstall>true</blockChildUninstall>
+    <scriptfile>script.php</scriptfile>
+    <updateservers>
+        <server type="extension" priority="1" name="Compact Tables Update Site">https://raw.githubusercontent.com/WoodyF4u/Compact-Tables/main/updates.xml</server>
+    </updateservers>
+    <files folder="packages">
+        <file type="component" id="com_compacttables">com_compacttables.zip</file>
+        <file type="plugin" id="compacttables" group="content">plg_content_compacttables.zip</file>
+        <file type="plugin" id="compacttables" group="editors-xtd">plg_editors-xtd_compacttables.zip</file>
+    </files>
+    <languages folder="language">
+        <language tag="en-GB">en-GB/pkg_compacttables.sys.ini</language>
+        <language tag="nl-NL">nl-NL/pkg_compacttables.sys.ini</language>
+    </languages>
+</extension>

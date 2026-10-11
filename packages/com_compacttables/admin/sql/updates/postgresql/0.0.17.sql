@@ -1,0 +1,1 @@
+-- Compact Tables 0.0.17: first version under this name

@@ -1,0 +1,183 @@
+/**
+ * Compact Tables – the dialog around the table picker (the pop-up that the
+ * editor button opens).
+ *
+ * Joomla leaves the look of its dialogs to the template. Cassiopeia and the
+ * administrator template bring it; many other site templates do not, and then
+ * the dialog shows up with the browser's thick black border, a centred title
+ * and a close button that is just a tiny empty box. So this dialog brings its
+ * own complete look, the same in every template.
+ *
+ * Colours follow the page (Joomla's --body-bg ..., standard Bootstrap's
+ * --bs-body-bg ..., otherwise plain light).
+ *
+ * @copyright  (C) 2026 CompactWeb
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ */
+
+joomla-dialog.tm-picker-dialog {
+  --tmd-bg: var(--body-bg, var(--bs-body-bg, #fff));
+  --tmd-text: var(--body-color, var(--bs-body-color, #212529));
+  --tmd-border: var(--border-color, var(--bs-border-color, #c5cbd1));
+}
+
+/* As wide as is comfortable to read, and only as tall as its content needs. */
+joomla-dialog.tm-picker-dialog dialog {
+  box-sizing: border-box;
+  width: min(56rem, 94vw);
+  max-width: none;
+  height: fit-content;
+  max-height: 90vh;
+  inline-size: min(56rem, 94vw);
+  max-inline-size: none;
+  block-size: fit-content;
+  max-block-size: 90vh;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--tmd-border);
+  border-radius: .5rem;
+  background: var(--tmd-bg);
+  color: var(--tmd-text);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, .3);
+}
+
+joomla-dialog.tm-picker-dialog dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+joomla-dialog.tm-picker-dialog dialog::backdrop {
+  background: rgba(0, 0, 0, .5);
+}
+
+/* Icon and title on the left, with room between them; close button on the right. */
+joomla-dialog.tm-picker-dialog .joomla-dialog-header {
+  display: flex;
+  flex: none;
+  gap: .75rem;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0;
+  padding: .75rem 1rem;
+  border: 0;
+  border-bottom: 1px solid var(--tmd-border);
+  background: var(--tmd-bg);
+  text-align: start;
+}
+
+joomla-dialog.tm-picker-dialog .joomla-dialog-header h3 {
+  flex: 0 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  color: var(--tmd-text);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+joomla-dialog.tm-picker-dialog .joomla-dialog-header .header-icon {
+  flex: none;
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+joomla-dialog.tm-picker-dialog .joomla-dialog-header .buttons-holder {
+  position: static;
+  display: flex;
+  flex: none;
+  margin: 0;
+  margin-inline-start: auto;
+}
+
+/* The close button: a clear cross, drawn here so it does not depend on the template. */
+joomla-dialog.tm-picker-dialog .joomla-dialog-header .button-close {
+  position: relative;
+  box-sizing: border-box;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--tmd-border);
+  border-radius: .375rem;
+  background: var(--tmd-bg);
+  background-image: none;
+  color: var(--tmd-text);
+  opacity: 1;
+  filter: none;
+  cursor: pointer;
+}
+
+joomla-dialog.tm-picker-dialog .joomla-dialog-header .button-close::before,
+joomla-dialog.tm-picker-dialog .joomla-dialog-header .button-close::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.125rem;
+  height: 2px;
+  border-radius: 1px;
+  background: currentColor;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+joomla-dialog.tm-picker-dialog .joomla-dialog-header .button-close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+joomla-dialog.tm-picker-dialog .joomla-dialog-header .button-close:hover,
+joomla-dialog.tm-picker-dialog .joomla-dialog-header .button-close:focus-visible {
+  border-color: currentColor;
+}
+
+joomla-dialog.tm-picker-dialog .joomla-dialog-body {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+ * The picker reports how tall its content is and sets the height of this frame
+ * itself; until it has, and as the upper limit, these values apply. Beyond the
+ * limit the list scrolls inside the frame.
+ */
+joomla-dialog.tm-picker-dialog iframe.iframe-content {
+  display: block;
+  width: 100%;
+  height: 12rem;
+  max-height: calc(90vh - 4.5rem);
+  inline-size: 100%;
+  block-size: 12rem;
+  max-block-size: calc(90vh - 4.5rem);
+  border: 0;
+}
+
+joomla-dialog.tm-picker-dialog .joomla-dialog-footer.empty {
+  display: none;
+}
+
+/* While a table is made or edited inside the dialog: as much room as the screen gives. */
+joomla-dialog.tm-picker-dialog.tm-picker-dialog--wide dialog {
+  width: min(88rem, 96vw);
+  inline-size: min(88rem, 96vw);
+  max-height: 94vh;
+  max-block-size: 94vh;
+}
+
+joomla-dialog.tm-picker-dialog.tm-picker-dialog--wide iframe.iframe-content,
+joomla-dialog.tm-picker-dialog.tm-picker-dialog--fill iframe.iframe-content {
+  height: calc(94vh - 4.5rem);
+  max-height: none;
+  block-size: calc(94vh - 4.5rem);
+  max-block-size: none;
+}
+
+/* Dialogs with one of Joomla's own lists (choose a menu item or an article). */
+joomla-dialog.tm-picker-dialog.tm-picker-dialog--fill dialog {
+  width: min(72rem, 96vw);
+  inline-size: min(72rem, 96vw);
+  max-height: 94vh;
+  max-block-size: 94vh;
+}

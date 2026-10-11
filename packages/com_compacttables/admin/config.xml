@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <fieldset name="component" label="COM_COMPACTTABLES_CONFIG_FIELDSET_LABEL" description="COM_COMPACTTABLES_CONFIG_FIELDSET_DESC">
+        <field
+            name="table_class"
+            type="text"
+            label="COM_COMPACTTABLES_CONFIG_TABLE_CLASS_LABEL"
+            description="COM_COMPACTTABLES_CONFIG_TABLE_CLASS_DESC"
+            default="table"
+            filter="string"
+        />
+    </fieldset>
+    <fieldset name="toolbar" label="COM_COMPACTTABLES_CONFIG_TOOLBAR_LABEL" description="COM_COMPACTTABLES_CONFIG_TOOLBAR_DESC"
+        addfieldprefix="Compactweb\Component\Compacttables\Administrator\Field">
+        <field
+            name="toolbar"
+            type="tmtoolbar"
+            label="COM_COMPACTTABLES_CONFIG_TOOLBAR_FIELD_LABEL"
+            hiddenLabel="true"
+            default="bold,italic,underline,|,link,unlink,|,removeformat"
+            filter="string"
+        />
+    </fieldset>
+    <fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+        <field
+            name="rules"
+            type="rules"
+            label="JCONFIG_PERMISSIONS_LABEL"
+            filter="rules"
+            validate="rules"
+            component="com_compacttables"
+            section="component"
+        />
+    </fieldset>
+</config>
