@@ -95,7 +95,7 @@ $shortcode = '{table ' . $id . '}';
                     <p class="tm-css-intro"><?php echo Text::_('COM_COMPACTTABLES_CSS_INTRO'); ?></p>
                     <?php foreach (['css_header', 'css_body', 'css_cells', 'css_borders', 'css_layout', 'css_responsive', 'css_link'] as $fieldset) : ?>
                         <fieldset class="options-form tm-css-set" data-tm-fieldset="<?php echo $fieldset; ?>">
-                            <legend><?php echo Text::_($this->form->getFieldsets('params')[$fieldset]->label); ?></legend>
+                            <legend><?php echo Text::_($this->form->getFieldsets()[$fieldset]->label); ?></legend>
                             <?php if ($fieldset === 'css_header') : ?>
                                 <p class="tm-header-off text-muted" hidden><?php echo Text::_('COM_COMPACTTABLES_CSS_HEADER_OFF'); ?></p>
                             <?php endif; ?>

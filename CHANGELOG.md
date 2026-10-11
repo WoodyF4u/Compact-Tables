@@ -15,9 +15,17 @@ controleren of een functie daadwerkelijk is meegenomen.
   (links/midden/rechts) en verticale (boven/midden/onder) uitlijning.
   Standaard links en boven, ook voor bestaande tabellen. ‘Template-standaard’
   laat het aan de template over.
-- **Nieuw: tabellen koppelen.** Tabellen met dezelfde ‘Koppelnaam’ op één
-  pagina krijgen dezelfde kolombreedtes, zodat ze onder elkaar uitlijnen.
-  Werkt bij tabellen met evenveel kolommen, niet bij ‘Zijwaarts scrollen’.
+- **Nieuw: tabellen koppelen.** Op het tabblad Stijl staat onder ‘Tabellen
+  koppelen’ een uitklaplijst met alle andere tabellen; zet een vinkje bij de
+  tabellen die dezelfde kolombreedtes moeten krijgen.
+  - Achter elke naam staat de code en het aantal kolommen.
+  - De koppeling geldt over en weer: de gekoppelde tabellen tonen het vinkje ook.
+  - Op de website lijnen gekoppelde tabellen in één artikel hun kolommen exact
+    uit. Werkt bij tabellen met evenveel kolommen, niet bij ‘Zijwaarts scrollen’.
+  - Het overzicht heeft een kolom ‘Gekoppeld’: ‘geen’, of de namen van de
+    gekoppelde tabellen onder elkaar.
+  - Een verwijderde tabel verdwijnt uit de koppeling; ‘Opslaan als kopie’ maakt
+    een kopie zonder koppelingen.
 
 ## 0.9.0 (eerste release op GitHub)
 

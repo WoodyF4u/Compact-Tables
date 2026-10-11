@@ -1066,6 +1066,28 @@ if (preview) {
   });
 }
 
+/* Linked tables: a drop-down with tick boxes; the closed list shows the names that are ticked. */
+document.querySelectorAll('[data-tm-links]').forEach((links) => {
+  const summary = links.querySelector('[data-tm-links-summary]');
+  const update = () => {
+    const names = [...links.querySelectorAll('input[type="checkbox"]:checked')].map((box) => box.dataset.tmLinksTitle);
+    summary.textContent = names.length ? names.join(', ') : links.dataset.tmLinksNone;
+  };
+
+  links.addEventListener('change', update);
+
+  // Close the list on a click elsewhere or with Escape, like an ordinary drop-down.
+  document.addEventListener('click', (event) => {
+    if (links.open && !links.contains(event.target)) links.open = false;
+  });
+  links.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && links.open) {
+      links.open = false;
+      links.querySelector('summary').focus();
+    }
+  });
+});
+
 /* Copy the {table N} code. */
 document.addEventListener('click', (event) => {
   const button = event.target.closest('[data-tm-copy]');

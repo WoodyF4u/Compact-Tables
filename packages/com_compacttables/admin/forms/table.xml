@@ -228,16 +228,18 @@
                 <option value="stack">COM_COMPACTTABLES_OPTION_RESPONSIVE_STACK</option>
             </field>
         </fieldset>
-        <fieldset name="css_link" label="COM_COMPACTTABLES_FIELDSET_LINK">
-            <field
-                name="link_group"
-                type="text"
-                label="COM_COMPACTTABLES_FIELD_LINK_GROUP_LABEL"
-                description="COM_COMPACTTABLES_FIELD_LINK_GROUP_DESC"
-                hint="COM_COMPACTTABLES_FIELD_LINK_GROUP_HINT"
-                maxlength="30"
-                filter="string"
-            />
-        </fieldset>
     </fields>
+
+    <!-- Outside "params": the choice is stored by LinkHelper, also in the other tables of the group. -->
+    <fieldset name="css_link" label="COM_COMPACTTABLES_FIELDSET_LINK">
+        <field
+            name="linked"
+            type="tmlinks"
+            label="COM_COMPACTTABLES_FIELDSET_LINK"
+            description="COM_COMPACTTABLES_FIELD_LINKED_DESC"
+            hiddenLabel="true"
+            multiple="true"
+            filter="intarray"
+        />
+    </fieldset>
 </form>

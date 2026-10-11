@@ -8,6 +8,7 @@
 
 \defined('_JEXEC') or die;
 
+use Compactweb\Component\Compacttables\Administrator\Helper\LinkHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
@@ -55,7 +56,8 @@ $addUrl    = Route::_('index.php?option=com_compacttables&task=table.add');
                 <thead>
                     <tr>
                         <th scope="col"><?php echo Text::_('COM_COMPACTTABLES_HEADING_NAME'); ?></th>
-                        <th scope="col" class="w-25"><?php echo Text::_('COM_COMPACTTABLES_HEADING_SHORTCODE'); ?></th>
+                        <th scope="col" class="w-20"><?php echo Text::_('COM_COMPACTTABLES_HEADING_SHORTCODE'); ?></th>
+                        <th scope="col" class="w-20"><?php echo Text::_('COM_COMPACTTABLES_HEADING_LINKED'); ?></th>
                         <th scope="col" class="w-15 d-none d-lg-table-cell"><?php echo Text::_('JGLOBAL_MODIFIED'); ?></th>
                         <th scope="col" class="w-10 text-end"><?php echo Text::_('COM_COMPACTTABLES_HEADING_ACTIONS'); ?></th>
                     </tr>
@@ -82,6 +84,18 @@ $addUrl    = Route::_('index.php?option=com_compacttables&task=table.add');
                                     <span class="icon-copy" aria-hidden="true"></span>
                                     <span class="visually-hidden"><?php echo Text::sprintf('COM_COMPACTTABLES_COPY_SHORTCODE_OF', $title); ?></span>
                                 </button>
+                            </td>
+                            <td>
+                                <?php $linked = LinkHelper::getLinked((int) $item->id); ?>
+                                <?php if ($linked) : ?>
+                                    <ul class="tm-linked">
+                                        <?php foreach ($linked as $linkedTitle) : ?>
+                                            <li><?php echo $this->escape($linkedTitle); ?></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                <?php else : ?>
+                                    <span class="tm-linked--none"><?php echo Text::_('COM_COMPACTTABLES_LINKED_NONE_LOWER'); ?></span>
+                                <?php endif; ?>
                             </td>
                             <td class="d-none d-lg-table-cell">
                                 <?php echo HTMLHelper::_('date', $item->modified, Text::_('DATE_FORMAT_LC4')); ?>

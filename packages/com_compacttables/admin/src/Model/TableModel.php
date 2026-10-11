@@ -8,6 +8,7 @@
 
 namespace Compactweb\Component\Compacttables\Administrator\Model;
 
+use Compactweb\Component\Compacttables\Administrator\Helper\LinkHelper;
 use Compactweb\Component\Compacttables\Administrator\Helper\TableDataHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
@@ -82,8 +83,18 @@ class TableModel extends AdminModel
         $data['has_header'] = empty($data['has_header']) ? 0 : 1;
         $data['params']     = TableDataHelper::cleanParams((array) ($data['params'] ?? []));
 
+        // Linked tables: the choice arrives as "linked" (IDs); the group itself is kept in the params
+        // and only changed by LinkHelper, also for the other tables of the group.
+        $isCopy   = Factory::getApplication()->getInput()->getCmd('task') === 'save2copy';
+        $linked   = \array_key_exists('linked', $data) ? array_filter(array_map('intval', (array) $data['linked'])) : null;
+        $tables   = LinkHelper::getTables(true);
+        $existing = (int) ($data['id'] ?? 0);
+        unset($data['linked']);
+
+        $data['params']['link_group'] = !$isCopy && $existing ? ($tables[$existing]['group'] ?? '') : '';
+
         // "Save as Copy": if the name was left as it was, number the copy so the two can be told apart.
-        if (Factory::getApplication()->getInput()->getCmd('task') === 'save2copy') {
+        if ($isCopy) {
             $original = $this->getTable();
 
 
@@ -92,7 +103,34 @@ class TableModel extends AdminModel
             }
         }
 
-        return parent::save($data);
+        if (!parent::save($data)) {
+            return false;
+        }
+
+        // A copy starts on its own, so the original's group stays as it was.
+        if ($linked !== null && !$isCopy) {
+            try {
+                LinkHelper::setLinks((int) $this->getState($this->getName() . '.id'), $linked);
+            } catch (\Throwable $e) {
+                Factory::getApplication()->enqueueMessage($e->getMessage(), 'warning');
+            }
+        }
+
+        return true;
+    }
+
+    public function delete(&$pks)
+    {
+        $result = parent::delete($pks);
+
+        // Tables that were linked to a deleted table: a group of one is no group.
+        try {
+            LinkHelper::tidy();
+        } catch (\Throwable $e) {
+            // The deletion itself succeeded; a stale group only means no lining up.
+        }
+
+        return $result;
     }
 
     protected function canDelete($record)
