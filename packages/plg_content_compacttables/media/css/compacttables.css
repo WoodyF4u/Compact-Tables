@@ -127,6 +127,9 @@
 
 /* ---- Optional styling ------------------------------------------------ */
 
+/* Bold or not: :nth-child(n) only raises the specificity, so the choice also wins from templates
+   that set their own weight on header cells (Cassiopeia: ".table th { font-weight: 500 }"). */
+
 .compacttables--head-bg .compacttables__table > thead > tr > th {
   --bs-table-bg: var(--tm-head-bg);
   --bs-table-accent-bg: transparent;
@@ -144,11 +147,11 @@
   color: inherit;
 }
 
-.compacttables--head-bold .compacttables__table > thead > tr > th {
+.compacttables--head-bold .compacttables__table:nth-child(n) > thead:nth-child(n) > tr:nth-child(n) > th {
   font-weight: 700;
 }
 
-.compacttables--head-normal .compacttables__table > thead > tr > th {
+.compacttables--head-normal .compacttables__table:nth-child(n) > thead:nth-child(n) > tr:nth-child(n) > th {
   font-weight: 400;
 }
 
@@ -167,11 +170,11 @@
   color: var(--tm-body-color);
 }
 
-.compacttables--body-bold .compacttables__table > tbody > tr > td {
+.compacttables--body-bold .compacttables__table:nth-child(n) > tbody:nth-child(n) > tr:nth-child(n) > td {
   font-weight: 700;
 }
 
-.compacttables--body-normal .compacttables__table > tbody > tr > td {
+.compacttables--body-normal .compacttables__table:nth-child(n) > tbody:nth-child(n) > tr:nth-child(n) > td {
   font-weight: 400;
 }
 
@@ -264,4 +267,45 @@
   .compacttables--stack.compacttables--outer .compacttables__table > tbody:nth-child(n) > tr:nth-child(n) > td:last-child {
     border-block-end-width: 0;
   }
+}
+
+/* ---- Text in the cells: horizontal and vertical alignment ------------
+ * :nth-child(n) only raises the specificity above template rules such as
+ * Cassiopeia's ".table td { vertical-align: middle }". */
+
+.compacttables--text-left .compacttables__table:nth-child(n) > * > tr > * {
+  text-align: start;
+}
+
+.compacttables--text-center .compacttables__table:nth-child(n) > * > tr > * {
+  text-align: center;
+}
+
+.compacttables--text-right .compacttables__table:nth-child(n) > * > tr > * {
+  text-align: end;
+}
+
+.compacttables--valign-top .compacttables__table:nth-child(n) > * > tr > * {
+  vertical-align: top;
+}
+
+.compacttables--valign-middle .compacttables__table:nth-child(n) > * > tr > * {
+  vertical-align: middle;
+}
+
+.compacttables--valign-bottom .compacttables__table:nth-child(n) > * > tr > * {
+  vertical-align: bottom;
+}
+
+/* ---- Linked tables: the same column widths --------------------------
+ * compacttables.js measures the tables of one group and gives them all the
+ * same <colgroup>; a fixed layout then keeps exactly those widths. While
+ * measuring, every table gets the browser's own (automatic) layout. */
+
+.compacttables--linked .compacttables__table:nth-child(n) {
+  table-layout: fixed;
+}
+
+.compacttables--measuring .compacttables__table:nth-child(n) {
+  table-layout: auto;
 }

@@ -93,7 +93,7 @@ $shortcode = '{table ' . $id . '}';
             <div class="row">
                 <div class="col-12 col-xl-5" id="tm-css-fields">
                     <p class="tm-css-intro"><?php echo Text::_('COM_COMPACTTABLES_CSS_INTRO'); ?></p>
-                    <?php foreach (['css_header', 'css_body', 'css_borders', 'css_layout', 'css_responsive'] as $fieldset) : ?>
+                    <?php foreach (['css_header', 'css_body', 'css_cells', 'css_borders', 'css_layout', 'css_responsive', 'css_link'] as $fieldset) : ?>
                         <fieldset class="options-form tm-css-set" data-tm-fieldset="<?php echo $fieldset; ?>">
                             <legend><?php echo Text::_($this->form->getFieldsets('params')[$fieldset]->label); ?></legend>
                             <?php if ($fieldset === 'css_header') : ?>

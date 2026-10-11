@@ -144,6 +144,27 @@ final class Compacttables extends CMSPlugin implements SubscriberInterface
             $variables['--tm-width'] = $value;
         }
 
+        // Text in the cells: left and at the top unless chosen otherwise ("template" leaves it to the site template).
+        $cellAlign = (string) $params->get('cell_align', 'left');
+
+        if (\in_array($cellAlign, ['left', 'center', 'right'], true)) {
+            $classes[] = 'compacttables--text-' . $cellAlign;
+        }
+
+        $cellValign = (string) $params->get('cell_valign', 'top');
+
+        if (\in_array($cellValign, ['top', 'middle', 'bottom'], true)) {
+            $classes[] = 'compacttables--valign-' . $cellValign;
+        }
+
+        // Tables with the same link name on one page get the same column widths (compacttables.js).
+        $linkGroup = (string) $params->get('link_group', '');
+        $linked    = preg_match('~^[a-z0-9-]{1,30}$~', $linkGroup) === 1;
+
+        if ($linked) {
+            $classes[] = 'compacttables--group-' . $linkGroup;
+        }
+
         // A line needs both a width and a colour; whichever was left empty gets a sensible default.
         // Room between the cells.
         if ($value = $params->get('spacing')) {
@@ -189,8 +210,12 @@ final class Compacttables extends CMSPlugin implements SubscriberInterface
         $document = $this->getApplication()->getDocument();
 
         if ($document instanceof HtmlDocument) {
-            $document->getWebAssetManager()
-                ->registerAndUseStyle('plg_content_compacttables.table', 'plg_content_compacttables/compacttables.css');
+            $assets = $document->getWebAssetManager();
+            $assets->registerAndUseStyle('plg_content_compacttables.table', 'plg_content_compacttables/compacttables.css');
+
+            if ($linked) {
+                $assets->registerAndUseScript('plg_content_compacttables.link', 'plg_content_compacttables/compacttables.js', [], ['defer' => true]);
+            }
         }
 
         $displayData = [

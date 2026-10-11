@@ -22,5 +22,6 @@
     </languages>
     <media destination="plg_content_compacttables" folder="media">
         <folder>css</folder>
+        <folder>js</folder>
     </media>
 </extension>

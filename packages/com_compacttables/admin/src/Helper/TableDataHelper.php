@@ -307,6 +307,11 @@ final class TableDataHelper
         $bodyBold   = (string) ($params['body_bold'] ?? '');
         $align      = (string) ($params['align'] ?? 'left');
         $responsive = (string) ($params['responsive'] ?? 'fit');
+        $cellAlign  = (string) ($params['cell_align'] ?? 'left');
+        $cellValign = (string) ($params['cell_valign'] ?? 'top');
+
+        // Name shared by tables that get the same column widths: lower case letters, digits and dashes.
+        $linkGroup = trim(preg_replace('~[^a-z0-9]+~', '-', strtolower(trim((string) ($params['link_group'] ?? '')))), '-');
 
         return [
             'head_bg'        => $colour($params['head_bg'] ?? ''),
@@ -330,6 +335,9 @@ final class TableDataHelper
             'spacing'        => $spacing($params['spacing'] ?? ''),
             'align'          => \in_array($align, ['left', 'center', 'right'], true) ? $align : 'left',
             'responsive'     => \in_array($responsive, ['fit', 'scroll', 'stack'], true) ? $responsive : 'fit',
+            'cell_align'     => \in_array($cellAlign, ['template', 'left', 'center', 'right'], true) ? $cellAlign : 'left',
+            'cell_valign'    => \in_array($cellValign, ['template', 'top', 'middle', 'bottom'], true) ? $cellValign : 'top',
+            'link_group'     => substr($linkGroup, 0, 30),
         ];
     }
 }

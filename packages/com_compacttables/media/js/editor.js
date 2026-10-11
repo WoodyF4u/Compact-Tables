@@ -978,6 +978,11 @@ const renderPreview = () => {
   if (param('body_font_size')) { classes.push('compacttables--body-size'); variables['--tm-body-size'] = param('body_font_size'); }
   if (colour('body_link_color')) { classes.push('compacttables--body-link'); variables['--tm-body-link'] = colour('body_link_color'); }
 
+  const cellAlign = param('cell_align') || 'left';
+  if (['left', 'center', 'right'].includes(cellAlign)) classes.push(`compacttables--text-${cellAlign}`);
+  const cellValign = param('cell_valign') || 'top';
+  if (['top', 'middle', 'bottom'].includes(cellValign)) classes.push(`compacttables--valign-${cellValign}`);
+
   if (/^\d+(px|%)$/.test(param('width')) && param('width') !== '100%') {
     classes.push('compacttables--width', `compacttables--align-${['center', 'right'].includes(param('align')) ? param('align') : 'left'}`);
     variables['--tm-width'] = param('width');

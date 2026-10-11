@@ -40,7 +40,7 @@
                 name="head_bold"
                 type="list"
                 label="COM_COMPACTTABLES_FIELD_HEAD_BOLD_LABEL"
-                default=""
+                default="1"
                 validate="options"
                 >
                 <option value="">COM_COMPACTTABLES_OPTION_TEMPLATE_DEFAULT</option>
@@ -152,6 +152,32 @@
                 label="COM_COMPACTTABLES_FIELD_HEAD_LINE_COLOR_LABEL"
             />
         </fieldset>
+        <fieldset name="css_cells" label="COM_COMPACTTABLES_FIELDSET_CELLS">
+            <field
+                name="cell_align"
+                type="list"
+                label="COM_COMPACTTABLES_FIELD_CELL_ALIGN_LABEL"
+                default="left"
+                validate="options"
+                >
+                <option value="template">COM_COMPACTTABLES_OPTION_TEMPLATE_DEFAULT</option>
+                <option value="left">COM_COMPACTTABLES_OPTION_ALIGN_LEFT</option>
+                <option value="center">COM_COMPACTTABLES_OPTION_ALIGN_CENTER</option>
+                <option value="right">COM_COMPACTTABLES_OPTION_ALIGN_RIGHT</option>
+            </field>
+            <field
+                name="cell_valign"
+                type="list"
+                label="COM_COMPACTTABLES_FIELD_CELL_VALIGN_LABEL"
+                default="top"
+                validate="options"
+                >
+                <option value="template">COM_COMPACTTABLES_OPTION_TEMPLATE_DEFAULT</option>
+                <option value="top">COM_COMPACTTABLES_OPTION_VALIGN_TOP</option>
+                <option value="middle">COM_COMPACTTABLES_OPTION_VALIGN_MIDDLE</option>
+                <option value="bottom">COM_COMPACTTABLES_OPTION_VALIGN_BOTTOM</option>
+            </field>
+        </fieldset>
         <fieldset name="css_layout" label="COM_COMPACTTABLES_FIELDSET_LAYOUT">
             <field
                 name="width"
@@ -201,6 +227,17 @@
                 <option value="scroll">COM_COMPACTTABLES_OPTION_RESPONSIVE_SCROLL</option>
                 <option value="stack">COM_COMPACTTABLES_OPTION_RESPONSIVE_STACK</option>
             </field>
+        </fieldset>
+        <fieldset name="css_link" label="COM_COMPACTTABLES_FIELDSET_LINK">
+            <field
+                name="link_group"
+                type="text"
+                label="COM_COMPACTTABLES_FIELD_LINK_GROUP_LABEL"
+                description="COM_COMPACTTABLES_FIELD_LINK_GROUP_DESC"
+                hint="COM_COMPACTTABLES_FIELD_LINK_GROUP_HINT"
+                maxlength="30"
+                filter="string"
+            />
         </fieldset>
     </fields>
 </form>
