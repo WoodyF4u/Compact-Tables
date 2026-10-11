@@ -27,6 +27,10 @@ controleren of een functie daadwerkelijk is meegenomen.
   - Een verwijderde tabel verdwijnt uit de koppeling; ‘Opslaan als kopie’ maakt
     een kopie zonder koppelingen.
 
+- De uitleg onder ‘Bovenste rij’ op het tabblad Stijl (zichtbaar als de
+  tabel geen kolomtitels heeft) heeft nu dezelfde opmaak als die onder
+  ‘Overige cellen’.
+
 ## 0.9.0 (eerste release op GitHub)
 
 - **Automatische updates via GitHub**: na installatie van deze versie
