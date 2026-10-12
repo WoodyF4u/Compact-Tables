@@ -205,7 +205,7 @@ final class Compacttables extends CMSPlugin implements SubscriberInterface
         $labels = array_map(static fn (string $cell): string => trim(html_entity_decode(strip_tags($cell), ENT_QUOTES, 'UTF-8')), $head);
 
         $componentParams = ComponentHelper::getParams('com_compacttables');
-        $tableClass      = trim('compacttables__table ' . preg_replace('~[^A-Za-z0-9_\- ]~', '', (string) $componentParams->get('table_class', 'table')));
+        $tableClass      = trim('compacttables__table ' . preg_replace('~[^A-Za-z0-9_\- ]~', '', (string) $componentParams->get('table_class', '')));
 
         $document = $this->getApplication()->getDocument();
 

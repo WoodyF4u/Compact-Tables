@@ -6,7 +6,8 @@
             type="text"
             label="COM_COMPACTTABLES_CONFIG_TABLE_CLASS_LABEL"
             description="COM_COMPACTTABLES_CONFIG_TABLE_CLASS_DESC"
-            default="table"
+            default=""
+            hint="COM_COMPACTTABLES_CONFIG_TABLE_CLASS_HINT"
             filter="string"
         />
     </fieldset>

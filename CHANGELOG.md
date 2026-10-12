@@ -3,6 +3,21 @@
 Elke regel is ook een test die je na installatie kunt aflopen om te
 controleren of een functie daadwerkelijk is meegenomen.
 
+## 0.9.3
+
+- **Tabellen nemen de tabelopmaak van de template over, ook de bovenste rij.**
+  Een `{table N}` ziet er zonder instellingen nu hetzelfde uit als een gewone
+  tabel die je met JCE of TinyMCE invoegt.
+  - Onder Opties heet het veld nu ‘Extra CSS-class voor tabellen’ en is het
+    standaard leeg. Op de website staat op `<table>` alleen nog
+    `compacttables__table`, niet meer `table`.
+  - Bij een update vanaf 0.9.2 of ouder wordt het veld eenmalig leeggemaakt als
+    er nog de oude standaard `table` in stond. Een zelf gekozen class blijft staan.
+  - De uitleg bij het veld (en op de helppagina) zegt wat een class oplevert,
+    met voorbeelden voor Bootstrap-templates: `table`, `table-striped`,
+    `table-bordered`, `table-hover`.
+  - Het voorbeeld op het tabblad Stijl volgt dezelfde instelling.
+
 ## 0.9.1
 
 - **Kolomtitels zijn nu ook op Cassiopeia vet.** Cassiopeia geeft kolomtitels

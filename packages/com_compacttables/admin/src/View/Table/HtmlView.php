@@ -145,7 +145,7 @@ class HtmlView extends BaseHtmlView
             ],
             'embedded' => $this->embedded,
             'toolbar'    => EditorToolbar::getLayout(),
-            'tableClass' => trim((string) \Joomla\CMS\Component\ComponentHelper::getParams('com_compacttables')->get('table_class', 'table')),
+            'tableClass' => trim((string) \Joomla\CMS\Component\ComponentHelper::getParams('com_compacttables')->get('table_class', '')),
         ]);
 
         foreach (

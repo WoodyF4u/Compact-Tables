@@ -30,6 +30,11 @@ class Pkg_CompacttablesInstallerScript
      */
     private array $existingPlugins = [];
 
+    /**
+     * @var  string  Version of Compact Tables that was installed before this run ('' on a new installation).
+     */
+    private string $previousVersion = '';
+
     public function preflight($type, $parent): bool
     {
         if ($type !== 'uninstall' && version_compare(JVERSION, self::MINIMUM_JOOMLA, '<')) {
@@ -40,6 +45,7 @@ class Pkg_CompacttablesInstallerScript
 
         if ($type !== 'uninstall') {
             $this->existingPlugins = array_values(array_filter(self::PLUGINS, fn (string $folder): bool => $this->pluginExists($folder)));
+            $this->previousVersion = $this->installedVersion();
         }
 
         return true;
@@ -61,6 +67,70 @@ class Pkg_CompacttablesInstallerScript
 
         $this->takeOverFromTableMaker();
         $this->splitCellLines();
+        $this->clearOldTableClass();
+    }
+
+    /**
+     * Up to 0.9.2 every table got the class 'table' by default, which puts Bootstrap's table
+     * styling over the template's own styling of ordinary tables (most visible in the top row).
+     * Since 0.9.3 the option is empty by default. On an update from an older version an option
+     * that still has the old default is emptied once; a class the site owner chose is kept.
+     */
+    private function clearOldTableClass(): void
+    {
+        if ($this->previousVersion === '' || version_compare($this->previousVersion, '0.9.3', '>=')) {
+            return;
+        }
+
+        try {
+            $db    = Factory::getContainer()->get(DatabaseInterface::class);
+            $query = $db->getQuery(true)
+                ->select($db->quoteName(['extension_id', 'params']))
+                ->from($db->quoteName('#__extensions'))
+                ->where($db->quoteName('type') . ' = ' . $db->quote('component'))
+                ->where($db->quoteName('element') . ' = ' . $db->quote('com_compacttables'));
+            $row = $db->setQuery($query)->loadObject();
+
+            if (!$row) {
+                return;
+            }
+
+            $params = json_decode((string) $row->params, true);
+
+            if (!\is_array($params) || !\array_key_exists('table_class', $params) || trim((string) $params['table_class']) !== 'table') {
+                return;
+            }
+
+            $params['table_class'] = '';
+
+            $query = $db->getQuery(true)
+                ->update($db->quoteName('#__extensions'))
+                ->set($db->quoteName('params') . ' = ' . $db->quote(json_encode($params)))
+                ->where($db->quoteName('extension_id') . ' = ' . (int) $row->extension_id);
+            $db->setQuery($query)->execute();
+        } catch (\Throwable $e) {
+            // Never let this stop an installation; the option can still be changed by hand.
+        }
+    }
+
+    /**
+     * Version of the installed package, read before the new files are copied.
+     */
+    private function installedVersion(): string
+    {
+        try {
+            $db    = Factory::getContainer()->get(DatabaseInterface::class);
+            $query = $db->getQuery(true)
+                ->select($db->quoteName('manifest_cache'))
+                ->from($db->quoteName('#__extensions'))
+                ->where($db->quoteName('type') . ' = ' . $db->quote('package'))
+                ->where($db->quoteName('element') . ' = ' . $db->quote('pkg_compacttables'));
+            $cache = json_decode((string) $db->setQuery($query)->loadResult(), true);
+
+            return \is_array($cache) ? (string) ($cache['version'] ?? '') : '';
+        } catch (\Throwable $e) {
+            return '';
+        }
     }
 
     /**
