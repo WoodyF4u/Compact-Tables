@@ -5,6 +5,7 @@
         <description>Maak responsive tabellen voor je Joomla-website en toon ze in een artikel met {table xx}. Component, content-plugin en editorknop in één pakket. --- Make responsive tables for your Joomla website and show them in an article with {table xx}. Component, content plugin and editor button in one package. --- Made by Wouter (WoodyF4u). Questions, bug reports or feature requests? Please open an issue on GitHub: https://github.com/WoodyF4u/Compact-Tables/issues</description>
         <element>pkg_compacttables</element>
         <type>package</type>
+        <client>site</client>
         <version>0.9.2</version>
         <infourl title="Compact Tables op GitHub">https://github.com/WoodyF4u/Compact-Tables</infourl>
         <downloads>
