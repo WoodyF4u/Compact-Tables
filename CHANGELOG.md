@@ -25,6 +25,13 @@ controleren of een functie daadwerkelijk is meegenomen.
     kanten, in px, rem of em. Leeg = template, 0 = geen ruimte.
   - Beide gelden voor alle cellen, ook de bovenste rij en gestapelde rijen op
     kleine schermen. Standaard leeg, dus bestaande tabellen veranderen niet.
+- **Nieuw op het tabblad Stijl, onder ‘Overige cellen’: ‘Rij oplichten onder de
+  muis’ (Ja/Nee).**
+  - Met ‘Kleur bij oplichten’ (leeg = de tekstkleur) en ‘Intensiteit’ in
+    procenten (leeg = 8%). Die twee velden zijn alleen zichtbaar bij Ja.
+  - De bovenste rij licht niet op; op touchscreens gebeurt er niets.
+  - Werkt in een lichte en een donkere weergave, en is te zien in het voorbeeld.
+  - Standaard Nee, ook voor bestaande tabellen.
 
 ## 0.9.1
 

@@ -157,6 +157,13 @@ final class Compacttables extends CMSPlugin implements SubscriberInterface
             $classes[] = 'compacttables--valign-' . $cellValign;
         }
 
+        // A row of the other cells lights up under the mouse; empty colour = the text colour, empty strength = 8%.
+        if ($params->get('hover', '0') === '1') {
+            $classes[]                 = 'compacttables--hover';
+            $variables['--tm-hover-c'] = $params->get('hover_color') ?: 'currentColor';
+            $variables['--tm-hover-s'] = $params->get('hover_strength') ?: '8%';
+        }
+
         // Line height and the room between the text and the edge of the cell; empty = the template's own.
         $lineHeight = (string) $params->get('line_height', '');
 

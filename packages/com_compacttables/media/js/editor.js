@@ -982,6 +982,11 @@ const renderPreview = () => {
   if (['left', 'center', 'right'].includes(cellAlign)) classes.push(`compacttables--text-${cellAlign}`);
   const cellValign = param('cell_valign') || 'top';
   if (['top', 'middle', 'bottom'].includes(cellValign)) classes.push(`compacttables--valign-${cellValign}`);
+  if (param('hover') === '1') {
+    classes.push('compacttables--hover');
+    variables['--tm-hover-c'] = colour('hover_color') || 'currentColor';
+    variables['--tm-hover-s'] = /^\d{1,3}%$/.test(param('hover_strength')) ? param('hover_strength') : '8%';
+  }
   if (['1', '1.15', '1.25', '1.5', '1.75', '2'].includes(param('line_height'))) {
     classes.push('compacttables--line-height');
     variables['--tm-line-height'] = param('line_height');
@@ -1039,6 +1044,13 @@ const renderPreview = () => {
 
   const note = document.querySelector('.tm-header-off');
   if (note) note.hidden = hasHeader();
+
+  // Colour and strength of the row under the mouse only matter while that option is on.
+  ['hover_color', 'hover_strength'].forEach((name) => {
+    const field = document.getElementById(`jform_params_${name}`);
+    const group = field && field.closest('.control-group');
+    if (group) group.hidden = param('hover') !== '1';
+  });
 
   // The line under the top row is only offered while there is a top row.
   ['head_line_width', 'head_line_color'].forEach((name) => {

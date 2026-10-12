@@ -321,6 +321,8 @@ final class TableDataHelper
         $cellAlign  = (string) ($params['cell_align'] ?? 'left');
         $cellValign = (string) ($params['cell_valign'] ?? 'top');
         $lineHeight = (string) ($params['line_height'] ?? '');
+        $hover      = (string) ($params['hover'] ?? '0');
+        $hoverPct   = preg_match('~^(\d{1,3})(?:\.\d+)?%?$~', trim((string) ($params['hover_strength'] ?? '')), $hm) ? (int) $hm[1] : 0;
 
         // Name shared by tables that get the same column widths: lower case letters, digits and dashes.
         $linkGroup = trim(preg_replace('~[^a-z0-9]+~', '-', strtolower(trim((string) ($params['link_group'] ?? '')))), '-');
@@ -351,6 +353,9 @@ final class TableDataHelper
             'cell_valign'    => \in_array($cellValign, ['template', 'top', 'middle', 'bottom'], true) ? $cellValign : 'top',
             'line_height'    => \in_array($lineHeight, ['1', '1.15', '1.25', '1.5', '1.75', '2'], true) ? $lineHeight : '',
             'cell_padding'   => $padding($params['cell_padding'] ?? ''),
+            'hover'          => $hover === '1' ? '1' : '0',
+            'hover_color'    => $colour($params['hover_color'] ?? ''),
+            'hover_strength' => $hoverPct >= 1 ? min(100, $hoverPct) . '%' : '',
             'link_group'     => substr($linkGroup, 0, 30),
         ];
     }

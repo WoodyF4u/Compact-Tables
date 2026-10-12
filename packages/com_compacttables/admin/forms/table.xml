@@ -93,6 +93,34 @@
                 type="tmcolor"
                 label="COM_COMPACTTABLES_FIELD_LINK_COLOR_LABEL"
             />
+            <field
+                name="hover"
+                type="list"
+                label="COM_COMPACTTABLES_FIELD_HOVER_LABEL"
+                description="COM_COMPACTTABLES_FIELD_HOVER_DESC"
+                default="0"
+                validate="options"
+                >
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field
+                name="hover_color"
+                type="tmcolor"
+                label="COM_COMPACTTABLES_FIELD_HOVER_COLOR_LABEL"
+                description="COM_COMPACTTABLES_FIELD_HOVER_COLOR_DESC"
+            />
+            <field
+                name="hover_strength"
+                type="tmsize"
+                label="COM_COMPACTTABLES_FIELD_HOVER_STRENGTH_LABEL"
+                description="COM_COMPACTTABLES_FIELD_HOVER_STRENGTH_DESC"
+                hint="COM_COMPACTTABLES_FIELD_HOVER_STRENGTH_HINT"
+                units="%"
+                min="1"
+                max="100"
+                step="1"
+            />
         </fieldset>
         <fieldset name="css_borders" label="COM_COMPACTTABLES_FIELDSET_BORDERS">
             <field
