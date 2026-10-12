@@ -157,6 +157,19 @@ final class Compacttables extends CMSPlugin implements SubscriberInterface
             $classes[] = 'compacttables--valign-' . $cellValign;
         }
 
+        // Line height and the room between the text and the edge of the cell; empty = the template's own.
+        $lineHeight = (string) $params->get('line_height', '');
+
+        if (\in_array($lineHeight, ['1', '1.15', '1.25', '1.5', '1.75', '2'], true)) {
+            $classes[]                    = 'compacttables--line-height';
+            $variables['--tm-line-height'] = $lineHeight;
+        }
+
+        if (($value = (string) $params->get('cell_padding', '')) !== '') {
+            $classes[]                = 'compacttables--padding';
+            $variables['--tm-padding'] = $value;
+        }
+
         // Tables with the same link name on one page get the same column widths (compacttables.js).
         $linkGroup = (string) $params->get('link_group', '');
         $linked    = preg_match('~^[a-z0-9-]{1,30}$~', $linkGroup) === 1;

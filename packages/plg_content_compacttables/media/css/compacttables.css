@@ -297,6 +297,18 @@
   vertical-align: bottom;
 }
 
+/* ---- Text in the cells: line height and room inside the cell -------
+ * Only when chosen for this table; otherwise the template decides. The room
+ * applies to all four sides of every cell, also when rows are stacked. */
+
+.compacttables--line-height .compacttables__table:nth-child(n) > * > tr > * {
+  line-height: var(--tm-line-height);
+}
+
+.compacttables--padding .compacttables__table:nth-child(n) > * > tr > * {
+  padding: var(--tm-padding);
+}
+
 /* ---- Linked tables: the same column widths --------------------------
  * compacttables.js measures the tables of one group and gives them all the
  * same <colgroup>; a fixed layout then keeps exactly those widths. While

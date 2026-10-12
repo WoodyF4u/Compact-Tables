@@ -982,6 +982,14 @@ const renderPreview = () => {
   if (['left', 'center', 'right'].includes(cellAlign)) classes.push(`compacttables--text-${cellAlign}`);
   const cellValign = param('cell_valign') || 'top';
   if (['top', 'middle', 'bottom'].includes(cellValign)) classes.push(`compacttables--valign-${cellValign}`);
+  if (['1', '1.15', '1.25', '1.5', '1.75', '2'].includes(param('line_height'))) {
+    classes.push('compacttables--line-height');
+    variables['--tm-line-height'] = param('line_height');
+  }
+  if (/^\d*\.?\d+(px|rem|em)$/.test(param('cell_padding'))) {
+    classes.push('compacttables--padding');
+    variables['--tm-padding'] = param('cell_padding');
+  }
 
   if (/^\d+(px|%)$/.test(param('width')) && param('width') !== '100%') {
     classes.push('compacttables--width', `compacttables--align-${['center', 'right'].includes(param('align')) ? param('align') : 'left'}`);

@@ -17,6 +17,14 @@ controleren of een functie daadwerkelijk is meegenomen.
     met voorbeelden voor Bootstrap-templates: `table`, `table-striped`,
     `table-bordered`, `table-hover`.
   - Het voorbeeld op het tabblad Stijl volgt dezelfde instelling.
+- **Nieuw op het tabblad Stijl, onder ‘Tekst in de cellen’: ‘Regelafstand’ en
+  ‘Ruimte binnen de cel’.**
+  - Regelafstand: Template-standaard, 1, 1,15 (zoals in een tekstdocument),
+    1,25, 1,5, 1,75 of 2.
+  - Ruimte binnen de cel: ruimte tussen de tekst en de rand, aan alle vier de
+    kanten, in px, rem of em. Leeg = template, 0 = geen ruimte.
+  - Beide gelden voor alle cellen, ook de bovenste rij en gestapelde rijen op
+    kleine schermen. Standaard leeg, dus bestaande tabellen veranderen niet.
 
 ## 0.9.1
 

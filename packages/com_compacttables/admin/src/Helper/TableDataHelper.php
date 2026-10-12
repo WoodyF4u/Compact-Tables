@@ -303,12 +303,24 @@ final class TableDataHelper
             return str_ends_with($value, '%') ? '' : $value;
         };
 
+        // Room inside the cell: a length (0 allowed, meaning no room at all), at most 100 of the unit.
+        $padding = static function ($value): string {
+            $value = strtolower(trim(str_replace(',', '.', (string) $value)));
+
+            if (!preg_match('~^(\d{1,3}(?:\.\d{1,3})?)(px|rem|em)?$~', $value, $m) || (float) $m[1] > 100) {
+                return '';
+            }
+
+            return rtrim(rtrim(number_format((float) $m[1], 3, '.', ''), '0'), '.') . ($m[2] ?? 'px');
+        };
+
         $bold       = (string) ($params['head_bold'] ?? '');
         $bodyBold   = (string) ($params['body_bold'] ?? '');
         $align      = (string) ($params['align'] ?? 'left');
         $responsive = (string) ($params['responsive'] ?? 'fit');
         $cellAlign  = (string) ($params['cell_align'] ?? 'left');
         $cellValign = (string) ($params['cell_valign'] ?? 'top');
+        $lineHeight = (string) ($params['line_height'] ?? '');
 
         // Name shared by tables that get the same column widths: lower case letters, digits and dashes.
         $linkGroup = trim(preg_replace('~[^a-z0-9]+~', '-', strtolower(trim((string) ($params['link_group'] ?? '')))), '-');
@@ -337,6 +349,8 @@ final class TableDataHelper
             'responsive'     => \in_array($responsive, ['fit', 'scroll', 'stack'], true) ? $responsive : 'fit',
             'cell_align'     => \in_array($cellAlign, ['template', 'left', 'center', 'right'], true) ? $cellAlign : 'left',
             'cell_valign'    => \in_array($cellValign, ['template', 'top', 'middle', 'bottom'], true) ? $cellValign : 'top',
+            'line_height'    => \in_array($lineHeight, ['1', '1.15', '1.25', '1.5', '1.75', '2'], true) ? $lineHeight : '',
+            'cell_padding'   => $padding($params['cell_padding'] ?? ''),
             'link_group'     => substr($linkGroup, 0, 30),
         ];
     }

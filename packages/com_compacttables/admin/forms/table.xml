@@ -177,6 +177,33 @@
                 <option value="middle">COM_COMPACTTABLES_OPTION_VALIGN_MIDDLE</option>
                 <option value="bottom">COM_COMPACTTABLES_OPTION_VALIGN_BOTTOM</option>
             </field>
+            <field
+                name="line_height"
+                type="list"
+                label="COM_COMPACTTABLES_FIELD_LINE_HEIGHT_LABEL"
+                description="COM_COMPACTTABLES_FIELD_LINE_HEIGHT_DESC"
+                default=""
+                validate="options"
+                >
+                <option value="">COM_COMPACTTABLES_OPTION_TEMPLATE_DEFAULT</option>
+                <option value="1">COM_COMPACTTABLES_OPTION_LINE_HEIGHT_1</option>
+                <option value="1.15">COM_COMPACTTABLES_OPTION_LINE_HEIGHT_115</option>
+                <option value="1.25">COM_COMPACTTABLES_OPTION_LINE_HEIGHT_125</option>
+                <option value="1.5">COM_COMPACTTABLES_OPTION_LINE_HEIGHT_15</option>
+                <option value="1.75">COM_COMPACTTABLES_OPTION_LINE_HEIGHT_175</option>
+                <option value="2">COM_COMPACTTABLES_OPTION_LINE_HEIGHT_2</option>
+            </field>
+            <field
+                name="cell_padding"
+                type="tmsize"
+                label="COM_COMPACTTABLES_FIELD_CELL_PADDING_LABEL"
+                description="COM_COMPACTTABLES_FIELD_CELL_PADDING_DESC"
+                hint="COM_COMPACTTABLES_FIELD_CELL_PADDING_HINT"
+                units="px,rem,em"
+                min="0"
+                max="100"
+                step="any"
+            />
         </fieldset>
         <fieldset name="css_layout" label="COM_COMPACTTABLES_FIELDSET_LAYOUT">
             <field
